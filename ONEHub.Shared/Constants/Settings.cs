@@ -2,9 +2,9 @@
 
 public static class Settings
 {
-    public const string QueueIdentify = "12b.user.signup";
-    public const string CacheRedisQueueName = "Aff.12B.LandingPage.SignUp";
-    public const string TurnOnErrorQueueConsumer = "Aff.12B.LandingPage.TurnOnErrorQueueConsumer";
+    public const string QueueIdentify = "ONEHub.user.signup";
+    public const string CacheRedisQueueName = "ONEHub.LandingPage.SignUp";
+    public const string TurnOnErrorQueueConsumer = "ONEHub.LandingPage.TurnOnErrorQueueConsumer";
 
     public const string MainExchangeName = $"{QueueIdentify}.exchange";
     public const string RetryExchangeName = $"{QueueIdentify}.retry.exchange";

@@ -1,5 +1,5 @@
-using ONEHub.Shared.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
+using ONEHub.Shared.Services.Interfaces;
 
 namespace ONEHub.Shared.Services;
 
@@ -9,42 +9,23 @@ public class CacheKeyService : ICacheKeyService
 
     public CacheKeyService(IConfiguration configuration)
     {
-        applicationName = configuration["fanex.caching.redis:ApplicationName"] ?? "Aff.12B.LandingPage.Dev";
+        applicationName = configuration["fanex.caching.redis:ApplicationName"] ?? "ONEHub.Dev";
     }
 
-    public string GetLandingPageKey(string pageCode)
+    public string GetFullKey(string key, string? subKey1 = null, string? subKey2 = null)
     {
-        return $"{applicationName}:{CacheKey.LandingPage}_{pageCode}";
-    }
+        var fullKey = $"{applicationName}:{key}";
+        if (!string.IsNullOrWhiteSpace(subKey1))
+        {
+            fullKey = $"{fullKey}_{subKey1}";
+        }
 
-    public string GetLandingPagePreviewKey(string pageCode, int pageId)
-    {
-        return $"{applicationName}:{CacheKey.LandingPagePreview}_{pageCode}_{pageId}";
-    }
+        if (!string.IsNullOrWhiteSpace(subKey2))
+        {
+            fullKey = $"{fullKey}_{subKey2}";
+        }
 
-    public string GetAllLandingPageVersionKey()
-    {
-        return $"{applicationName}:{CacheKey.AllLandingPageVersion}";
-    }
-
-    public string GetSignUpKey()
-    {
-        return $"{applicationName}:{CacheKey.SignUp}";
-    }
-
-    public string GetRecaptchaInfoKey(string langCode, string domain)
-    {
-        return $"{applicationName}:{CacheKey.RecaptchaInfo}_{langCode}_{domain}";
-    }
-
-    public string GetUnderMaintainInfoKey()
-    {
-        return $"{applicationName}:{CacheKey.UnderMaintainInfo}";
-    }
-
-    public string GetNumberCaptchaKey()
-    {
-        return $"{applicationName}:{CacheKey.NumberCaptcha}";
+        return fullKey;
     }
 }
 
