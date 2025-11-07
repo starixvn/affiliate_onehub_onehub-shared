@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ONEHub.Shared", "ONEHub.Shared\ONEHub.Shared.csproj", "{B99D199A-BDEE-48CE-9243-0A06FD902433}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE975A6A-A0CD-4E55-B94D-CD73443815F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE975A6A-A0CD-4E55-B94D-CD73443815F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE975A6A-A0CD-4E55-B94D-CD73443815F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE975A6A-A0CD-4E55-B94D-CD73443815F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B99D199A-BDEE-48CE-9243-0A06FD902433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B99D199A-BDEE-48CE-9243-0A06FD902433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B99D199A-BDEE-48CE-9243-0A06FD902433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B99D199A-BDEE-48CE-9243-0A06FD902433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD736C56-45D6-0928-0E09-876486F56FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD736C56-45D6-0928-0E09-876486F56FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD736C56-45D6-0928-0E09-876486F56FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD736C56-45D6-0928-0E09-876486F56FE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAB357A5-2513-4E09-95FA-B02A8B71C847}
+	EndGlobalSection
+EndGlobal
