@@ -1,12 +1,12 @@
 ﻿using EasyNetQ;
 using EasyNetQ.Topology;
-using ONEHub.Shared.Constants;
-using ONEHub.Shared.Services.Interfaces;
 using Newtonsoft.Json;
+using ONEHub.Shared.Services.Interfaces;
 
 namespace ONEHub.Shared.Services;
 
-public class RabbitBus(ILogProvider logService) : IRabbitBus
+public class RabbitBus(IQueueKeyService queueKeyService, 
+    ILogProvider logService) : IRabbitBus
 {
     private IAdvancedBus? advancedBus;
     private Exchange? exchange;
@@ -35,7 +35,7 @@ public class RabbitBus(ILogProvider logService) : IRabbitBus
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                     await advancedBus.PublishAsync(
                            exchange.Value,
-                           routingKey: $"{Settings.QueueIdentify}.routing",
+                           routingKey: queueKeyService.RoutingKey,
                            mandatory: true,
                        new Message<T>(model)
                        ).ConfigureAwait(false);
@@ -58,8 +58,8 @@ public class RabbitBus(ILogProvider logService) : IRabbitBus
 
     public async Task RegisterQueueAsync()
     {
-        exchange = await advancedBus.ExchangeDeclareAsync(Settings.MainExchangeName, ExchangeType.Direct);
-        var queue = await advancedBus!.QueueDeclareAsync(Settings.MainQueueName, c =>
+        exchange = await advancedBus.ExchangeDeclareAsync(queueKeyService.MainExchangeName, ExchangeType.Direct);
+        var queue = await advancedBus!.QueueDeclareAsync(queueKeyService.MainQueueName, c =>
         {
             c.AsDurable(true);
             c.AsExclusive(false);
@@ -67,7 +67,7 @@ public class RabbitBus(ILogProvider logService) : IRabbitBus
             c.WithArgument("x-queue-type", "quorum");
         });
 
-        await advancedBus.BindAsync(exchange.Value, queue, Settings.RoutingKey);
+        await advancedBus.BindAsync(exchange.Value, queue, queueKeyService.RoutingKey);
     }
 
     public async Task<Dictionary<string, object>> GetConnectionInfoAsync()
@@ -92,9 +92,9 @@ public class RabbitBus(ILogProvider logService) : IRabbitBus
                     info["ConnectionType"] = "EasyNetQ.IAdvancedBus";
                 }
 
-                var mainQueueStatus = await advancedBus.GetQueueStatsAsync(Settings.MainQueueName);
-                var retryQueueStatus = await advancedBus.GetQueueStatsAsync(Settings.RetryQueueName);
-                var errorQueueStatus = await advancedBus.GetQueueStatsAsync(Settings.ErrorQueueName);
+                var mainQueueStatus = await advancedBus.GetQueueStatsAsync(queueKeyService.MainQueueName);
+                var retryQueueStatus = await advancedBus.GetQueueStatsAsync(queueKeyService.RetryQueueName);
+                var errorQueueStatus = await advancedBus.GetQueueStatsAsync(queueKeyService.ErrorQueueName);
                 info["mainQueueStatus.ConsumersCount"] = mainQueueStatus.ConsumersCount;
                 info["mainQueueStatus.MessagesCount"] = mainQueueStatus.MessagesCount;
                 info["retryQueueStatus.ConsumersCount"] = retryQueueStatus.ConsumersCount;
